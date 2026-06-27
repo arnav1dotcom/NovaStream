@@ -1,5 +1,6 @@
 package com.novastream.android.stream
 
+import android.view.Surface
 import com.novastream.android.capture.CaptureSession
 import com.novastream.android.encoder.VideoEncoder
 import com.novastream.android.model.CaptureConfig
@@ -24,9 +25,7 @@ class StreamController(
 
     fun startStream() {
 
-        if (streaming) {
-            return
-        }
+        if (streaming) return
 
         if (!transport.connect()) {
             return
@@ -50,6 +49,8 @@ class StreamController(
 
             transport.disconnect()
 
+            videoEncoder.release()
+
             return
 
         }
@@ -64,9 +65,7 @@ class StreamController(
 
     fun stopStream() {
 
-        if (!streaming) {
-            return
-        }
+        if (!streaming) return
 
         captureSession.stop()
 

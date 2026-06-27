@@ -13,6 +13,8 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.novastream.android.R
+import com.novastream.android.capture.CaptureSession
+import com.novastream.android.stream.StreamController
 
 class CaptureService : Service() {
 
@@ -40,6 +42,9 @@ class CaptureService : Service() {
     }
 
     private var mediaProjection: MediaProjection? = null
+    private var streamController: StreamController? = null
+
+    private var captureSession: CaptureSession? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -88,12 +93,16 @@ class CaptureService : Service() {
                         "MediaProjection Connected"
                     )
 
-                    /*
-                     * Next version:
-                     * CaptureSession
-                     * VideoEncoder
-                     * StreamController
-                     */
+                    captureSession = CaptureSession(
+
+                        this,
+
+                        mediaProjection!!
+
+                    )
+
+// Next:
+// StreamController
 
                 }
             }
@@ -107,6 +116,10 @@ class CaptureService : Service() {
     }
 
     private fun stopCapture() {
+
+        streamController?.stopStream()
+
+        captureSession?.stop()
 
         mediaProjection?.stop()
         mediaProjection = null
