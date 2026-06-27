@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.novastream.android">
 
-    <application ...>
-    <service
-        android:name=".CaptureService"
-        android:exported="false"
-        android:foregroundServiceType="mediaProjection"/>
-    </application>
+    <!-- Foreground Service -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <!-- Required for MediaProjection on Android 14+ -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
 
-<application
+    <!-- Audio (future implementation) -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- USB / Network -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="NovaStream"
@@ -37,7 +39,7 @@
         <service
             android:name=".service.CaptureService"
             android:exported="false"
-            android:foregroundServiceType="mediaProjection"/>
+            android:foregroundServiceType="mediaProjection" />
 
     </application>
 
