@@ -57,7 +57,9 @@ class DefaultEncoderCallback(
 
         val bytes = ByteArray(info.size)
 
-        buffer.rewind()
+        buffer.position(info.offset)
+        buffer.limit(info.offset + info.size)
+
         buffer.get(bytes)
 
         val isKeyFrame =
